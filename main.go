@@ -21,4 +21,6 @@ func receiveMessages(conn net.Conn) {
   }
 }
 
-
+func sendMessage(conn net.Conn, message string) {
+  conn.Write([]byte(message + "\n"))
+}
