@@ -17,7 +17,7 @@ func main() {
   }
   defer conn.Close()
 
-  go receiveMessages(os.Stdin)
+  go receiveMessage(conn)
 
   reader := bufio.NewReader(os.Stdin)
 
@@ -28,4 +28,13 @@ func main() {
   }
 }
 
-
+func receiveMessage(conn net.Conn) {
+  for {
+    message, err := bufio.NewReader(conn).ReadString('\n')
+    if err != nil {
+      slog.Error(err.Error())
+      return
+    }
+    fmt.Print(message)
+  }
+}
